@@ -16,6 +16,15 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true, unique:true, minLength:true},
 })
 
-const User = mongoose.model("User", userSchema)
+const accountSchema = new mongoose.Schema({
+    userId: {type: mongoose.Schema.Types.ObjectId,
+        res:'User',
+        required: true
+    },
+    balance: {type: Number, required:true}
+})
 
-module.exports = User 
+const User = mongoose.model("User", userSchema)
+const Account = mongoose.model("account", accountSchema)
+
+module.exports = {User, Account}
