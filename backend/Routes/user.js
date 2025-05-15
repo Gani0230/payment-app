@@ -126,9 +126,8 @@ router.put("/update",authmiddleware,async (req,res)=>{
     }
 })
 
-router.get("/bulk",authmiddleware,async (req,res)=>{
-    const filter = req.body.filter || ""
-
+router.get("/bulk/",authmiddleware,async (req,res)=>{
+    const filter = req.query.filter || "";
     const users = await User.find({
         $or:[
             {firstname: {$regex: `^${filter}`, $options: "i"}},
@@ -144,6 +143,17 @@ router.get("/bulk",authmiddleware,async (req,res)=>{
     })
 })
 
+router.get("/", authmiddleware ,async (req,res)=>{
+    const user = await User.findOne({_id: req.userId})
+    if(!user){
+        res.status(403).json({
+            msg:"User not found"
+        })
+    }
+    res.status(200).json({
+        username: user.firstname
+    })
+})
 
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODI0NmY3ODc5ZjNjNTQwZWU4Y2IyMjMiLCJpYXQiOjE3NDcyMTgyOTZ9.lJhH5WKQoiaQI69AAP1l5TOABJD34Q6XDw9JHQ3elF4
 module.exports = router

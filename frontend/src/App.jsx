@@ -10,7 +10,7 @@ const Send = React.lazy(()=>import("./pages/send"))
 
 function App() {
   return (
-    <div>
+    <div className="px-30">
       <BrowserRouter>
         <React.Suspense fallback={<div>Loading.....</div>}>
           <Routes>
