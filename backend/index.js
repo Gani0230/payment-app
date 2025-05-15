@@ -9,6 +9,6 @@ app.use(express.json())
 app.use(cors())
 app.use("/api/v1", router)
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT,'0.0.0.0', ()=>{
     console.log("server is live")
 })
