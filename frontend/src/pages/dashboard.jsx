@@ -26,7 +26,7 @@ export default function Dashboard(){
     },[])
     
     return(
-        <div>
+        <div className="px-50">
             <Appbar />
             <div className="m-4 text-[20px]">
                 <span className="font-bold">Your Balance: </span>
