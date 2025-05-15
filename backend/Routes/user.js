@@ -54,6 +54,37 @@ router.post("/signup", async (req,res)=>{
     
 })
 
+const singupcheck = z.object({
+    email: z.string().email(),
+    password: z.string().min(6)
+})
+
+router.post("/signin",async (req,res)=>{
+    const { success } = singupcheck.safeParse(req.body)
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if(!success){
+        return res.status(500).json({
+            msg:"wrong inputs"
+        })
+    }
+    const user =await User.findOne({
+        email,
+        password
+    })
+
+    if(!user){
+        return res.status(403).json({
+            msg:"user not found"
+        })
+    }
+
+    const token = jwt.sign({userId: user._id}, process.env.JWT_SECRETE)
+    res.status(200).json({
+        token
+    })
+})
 
 const updateUser = z.object({
     firstname: z.string().optional(),
