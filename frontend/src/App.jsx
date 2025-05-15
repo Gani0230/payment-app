@@ -2,6 +2,7 @@ import React from "react"
 import './App.css'
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
+import { RecoilRoot } from "recoil"
 const Signin = React.lazy(()=>import("./pages/signin"))
 const Signup = React.lazy(()=>import("./pages/signup"))
 const Dashboard = React.lazy(()=>import("./pages/dashboard"))
@@ -10,18 +11,20 @@ const Send = React.lazy(()=>import("./pages/send"))
 
 function App() {
   return (
-    <div className="px-30">
-      <BrowserRouter>
-        <React.Suspense fallback={<div>Loading.....</div>}>
-          <Routes>
-            <Route path="/" element={<Buttons />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/send" element={<Send />} />
-          </Routes>
-        </React.Suspense>
-      </BrowserRouter>
+    <div>
+      <RecoilRoot>
+        <BrowserRouter>
+          <React.Suspense fallback={<div>Loading.....</div>}>
+            <Routes>
+              <Route path="/" element={<Buttons />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/send" element={<Send />} />
+            </Routes>
+          </React.Suspense>
+        </BrowserRouter>
+      </RecoilRoot>
     </div>
   )
 }

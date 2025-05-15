@@ -9,7 +9,6 @@ export default function Dashboard(){
     useEffect(()=>{
         async function fetching_balance(){
             const token = localStorage.getItem("authToken")
-            console.log(token)
             try{
                 const res = await axios.get("http://localhost:3000/api/v1/account/balance",{
                     headers:{
@@ -17,10 +16,9 @@ export default function Dashboard(){
                     }
                 })
                 setBalance(res.data.balance)
-                console.log(res.data)
             }
             catch(e){
-                alert("something went wrong")
+                alert(e.response.data.msg)
                 console.log(e)
             }
         }
